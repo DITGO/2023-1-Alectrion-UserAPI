@@ -48,6 +48,10 @@ class UserRepository implements Repository {
   }
 
   async findOne(userId: string): Promise<any> {
+    // Verifique se o userId é definido antes de fazer a consulta
+    if (userId === undefined) {
+      return null
+    }
     const user = await this.userRepository.findOneBy({
       id: userId,
       isDeleted: false
@@ -59,6 +63,10 @@ class UserRepository implements Repository {
   }
 
   async findOneByEmail(email: string): Promise<any> {
+    // Verifique se o email é definido antes de fazer a consulta
+    if (email === undefined) {
+      return undefined
+    }
     const user = await this.userRepository.findOneBy({
       email,
       isDeleted: false
@@ -77,6 +85,11 @@ class UserRepository implements Repository {
   }
 
   async findOneByUsername(username: string): Promise<any> {
+    // Verifique se o username é definido antes de fazer a consulta
+    if (username === undefined) {
+      return undefined
+    }
+    // Consulta o usuário com o username fornecido e isDeleted: false
     const user = await this.userRepository.findOneBy({
       username,
       isDeleted: false
@@ -88,6 +101,10 @@ class UserRepository implements Repository {
   }
 
   async findOneByCpf(cpf: string): Promise<User | undefined> {
+    // Verifique se o username é definido antes de fazer a consulta
+    if (cpf === undefined) {
+      return undefined
+    }
     const user = await this.userRepository.findOneBy({
       cpf,
       isDeleted: false
