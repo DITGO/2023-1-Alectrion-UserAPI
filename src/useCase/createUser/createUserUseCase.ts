@@ -86,7 +86,7 @@ export class CreateUserUseCase
         error: new UserAlreadyExistsError('Username já utilizado')
       }
     }
-console.log(createUserData.username);
+
     const userByCpf = await this.userRepository.findOneByCpf(createUserData.cpf)
     if (userByCpf !== undefined) {
       return {
@@ -94,7 +94,7 @@ console.log(createUserData.username);
         error: new UserAlreadyExistsError('Cpf já utilizado')
       }
     }
-console.log(createUserData.cpf);
+
     let userPassword
     if (createUserData.password) {
       userPassword = createUserData.password
@@ -105,6 +105,7 @@ console.log(createUserData.cpf);
           error: new PasswordNotProvidedError()
         }
       userPassword = crypto.randomBytes(4).toString('hex')
+console.log(userPassword);
       const sent = await this.mailer.sendRecoverPasswordEmail(
         createUserData.email,
         userPassword
@@ -115,7 +116,7 @@ console.log(createUserData.cpf);
           error: new EmailNotSentError()
         }
     }
-console.log("senha");
+
     const hashedPassword = this.encryptor.encrypt(userPassword)
 
     const user = await this.userRepository.createUser({
