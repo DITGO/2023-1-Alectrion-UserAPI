@@ -33,6 +33,10 @@ class UserRepository implements Repository {
   }
 
   async updateOne(userData: any): Promise<boolean> {
+    // Verifique se o userId é definido antes de fazer a consulta
+    if (userData === undefined) {
+      return false
+    }
     const updateUserData = Object.assign({}, userData)
     delete updateUserData.userId
     await this.userRepository.update(userData.userId, updateUserData)
@@ -50,7 +54,7 @@ class UserRepository implements Repository {
   async findOne(userId: string): Promise<any> {
     // Verifique se o userId é definido antes de fazer a consulta
     if (userId === undefined) {
-      return null
+      return undefined
     }
     const user = await this.userRepository.findOneBy({
       id: userId,
@@ -135,7 +139,7 @@ class UserRepository implements Repository {
       role,
       temporaryPassword
     } = params
-
+console.log(params);
     const user = this.userRepository.create({
       name,
       email: email !== '' ? email : undefined,
@@ -146,6 +150,7 @@ class UserRepository implements Repository {
       role: role ?? Role.BASICO,
       temporarypassword: temporaryPassword
     })
+console.log(user);
     await this.userRepository.save(user)
     return user
   }
