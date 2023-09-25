@@ -65,9 +65,6 @@ export class CreateUserUseCase
   async execute(
     createUserData: CreateUserData
   ): Promise<UseCaseReponse<{ email: string; job: string }>> {
-
-    console.log(createUserData);
-
     if (createUserData.email) {
       const userByEmail = await this.userRepository.findOneByEmail(
         createUserData.email
@@ -89,7 +86,7 @@ export class CreateUserUseCase
         error: new UserAlreadyExistsError('Username já utilizado')
       }
     }
-
+console.log(createUserData.username);
     const userByCpf = await this.userRepository.findOneByCpf(createUserData.cpf)
     if (userByCpf !== undefined) {
       return {
@@ -97,7 +94,7 @@ export class CreateUserUseCase
         error: new UserAlreadyExistsError('Cpf já utilizado')
       }
     }
-
+console.log(createUserData.cpf);
     let userPassword
     if (createUserData.password) {
       userPassword = createUserData.password
@@ -118,7 +115,7 @@ export class CreateUserUseCase
           error: new EmailNotSentError()
         }
     }
-
+console.log("senha");
     const hashedPassword = this.encryptor.encrypt(userPassword)
 
     const user = await this.userRepository.createUser({
@@ -131,7 +128,7 @@ export class CreateUserUseCase
       role: Role[createUserData.role],
       temporaryPassword: createUserData.role !== 'CONSULTA'
     })
-
+console.log(user);
     if (user !== undefined) {
       return { isSuccess: true, data: { email: user.email, job: user.job } }
     } else {
