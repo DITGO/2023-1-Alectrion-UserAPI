@@ -109,7 +109,6 @@ export class CreateUserUseCase
         createUserData.email,
         userPassword
       )
-console.log(sent);
       if (!sent)
         return {
           isSuccess: false,
