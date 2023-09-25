@@ -65,6 +65,9 @@ export class CreateUserUseCase
   async execute(
     createUserData: CreateUserData
   ): Promise<UseCaseReponse<{ email: string; job: string }>> {
+
+    console.log(createUserData);
+
     if (createUserData.email) {
       const userByEmail = await this.userRepository.findOneByEmail(
         createUserData.email
