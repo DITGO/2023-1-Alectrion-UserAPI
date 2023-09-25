@@ -6,6 +6,10 @@ export class MailerAdapter implements MailService {
     email: string,
     temporaryPassword: string
   ): Promise<boolean> {
+console.log(process.env.HOST);
+console.log(process.env.EMAIL_PORT);
+console.log(process.env.USER);
+console.log(process.env.PASS);
     const transporter = nodemailer.createTransport({
       host: process.env.HOST,
       port: Number(process.env.EMAIL_PORT),
