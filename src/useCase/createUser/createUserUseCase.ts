@@ -105,7 +105,6 @@ export class CreateUserUseCase
           error: new PasswordNotProvidedError()
         }
       userPassword = crypto.randomBytes(4).toString('hex')
-console.log(userPassword);
       const sent = await this.mailer.sendRecoverPasswordEmail(
         createUserData.email,
         userPassword
