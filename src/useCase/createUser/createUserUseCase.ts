@@ -128,7 +128,7 @@ export class CreateUserUseCase
       role: Role[createUserData.role],
       temporaryPassword: createUserData.role !== 'CONSULTA'
     })
-console.log(user);
+
     if (user !== undefined) {
       return { isSuccess: true, data: { email: user.email, job: user.job } }
     } else {
