@@ -94,7 +94,7 @@ export class CreateUserUseCase
         error: new UserAlreadyExistsError('Cpf já utilizado')
       }
     }
-
+/*
     let userPassword
     if (createUserData.password) {
       userPassword = createUserData.password
@@ -114,6 +114,36 @@ export class CreateUserUseCase
           isSuccess: false,
           error: new EmailNotSentError()
         }
+    }
+*/
+
+    let userPassword
+    try {
+        if (createUserData.password) {
+            userPassword = createUserData.password;
+        } else {
+            if (createUserData.role === 'CONSULTA') {
+                throw new PasswordNotProvidedError();
+            }
+            userPassword = crypto.randomBytes(4).toString('hex');
+            const sent = await this.mailer.sendRecoverPasswordEmail(
+                createUserData.email,
+                userPassword
+            );
+            if (!sent) {
+                throw new EmailNotSentError();
+            }
+        }
+        // Após processamento bem-sucedido, envie a resposta HTTP.
+        return {
+            isSuccess: true,
+        };
+    } catch (error) {
+        // Lidar com erros e enviar uma resposta apropriada em caso de falha.
+        return {
+            isSuccess: false,
+            error: new EmailNotSentError(), // Ou outra forma de representar o erro.
+        };
     }
 
     const hashedPassword = this.encryptor.encrypt(userPassword)
