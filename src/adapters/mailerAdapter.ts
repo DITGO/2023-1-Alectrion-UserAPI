@@ -14,14 +14,12 @@ export class MailerAdapter implements MailService {
         pass: process.env.PASS
       }
     })
-//    from: `ALECTRION ADMIN <${process.env.USER}>`,
     return await transporter
       .sendMail({
-        from: process.env.USER,
+        from: `ALECTRION ADMIN <${process.env.USER}>`,
         to: email,
         subject: "Senha temporária Alectrion",
-        text: `A sua senha temporária é: ${temporaryPassword}`,
-/*        html: `
+        html: `
     <html>
     <head>
       <title>Senha temporária Alectrion</title>
@@ -57,13 +55,13 @@ export class MailerAdapter implements MailService {
       </div>
     </body>
     </html>`
-    */
       })
       .then(() => {
-        return true
+        return true;
       })
       .catch(() => {
-        return false
+        console.error("Erro ao enviar e-mail:", error);
+        return false;
       })
   }
 }
