@@ -14,11 +14,10 @@ export class MailerAdapter implements MailService {
         pass: process.env.PASS
       }
     })
-console.log(process.env.USER);
-console.log(email);
+//    from: `ALECTRION ADMIN <${process.env.USER}>`,
     return await transporter
       .sendMail({
-        from: `ALECTRION ADMIN <${process.env.USER}>`,
+        from: process.env.USER,
         to: email,
         subject: 'Senha temporária Alectrion',
         html: `
