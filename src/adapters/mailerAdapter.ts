@@ -14,7 +14,11 @@ export class MailerAdapter implements MailService {
         pass: process.env.PASS
       }
     })
-    return await transporter
+//    return await transporter
+return new Promise<boolean>(async (resolve, reject) => {
+    try {
+    await transporter
+
       .sendMail({
         from: `ALECTRION ADMIN <${process.env.USER}>`,
         to: email,
@@ -56,12 +60,17 @@ export class MailerAdapter implements MailService {
     </body>
     </html>`
       })
-      .then(() => {
+/*      .then(() => {
         return true;
       })
       .catch(() => {
-        console.error("Erro ao enviar e-mail:", error);
         return false;
-      })
+*/
+      resolve(true);
+      } catch (error) {
+        console.error("Erro ao enviar e-mail:", error);
+        reject(error);
+      }
+    })
   }
 }
