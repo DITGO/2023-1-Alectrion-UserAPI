@@ -14,7 +14,8 @@ export class MailerAdapter implements MailService {
         pass: process.env.PASS
       }
     })
-console.log(transporter);
+console.log(process.env.USER);
+console.log(email);
     return await transporter
       .sendMail({
         from: `ALECTRION ADMIN <${process.env.USER}>`,
