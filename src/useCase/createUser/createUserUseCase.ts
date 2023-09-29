@@ -94,7 +94,7 @@ export class CreateUserUseCase
         error: new UserAlreadyExistsError('Cpf já utilizado')
       }
     }
-/*
+
     let userPassword
     if (createUserData.password) {
       userPassword = createUserData.password
@@ -115,8 +115,8 @@ export class CreateUserUseCase
           error: new EmailNotSentError()
         }
     }
-*/
 
+/*
     let userPassword
     try {
         if (createUserData.password) {
@@ -130,15 +130,13 @@ export class CreateUserUseCase
                 createUserData.email,
                 userPassword
             );
-            console.log(sent);
             if (!sent) {
                 throw new EmailNotSentError();
+            } else {
+                // Após processamento bem-sucedido, envie a resposta HTTP.
+                return isSuccess: true
             }
         }
-        // Após processamento bem-sucedido, envie a resposta HTTP.
-        return {
-            isSuccess: true,
-        };
     } catch (error) {
         // Lidar com erros e enviar uma resposta apropriada em caso de falha.
         return {
@@ -146,7 +144,7 @@ export class CreateUserUseCase
             error: new EmailNotSentError(), // Ou outra forma de representar o erro.
         };
     }
-
+*/
     const hashedPassword = this.encryptor.encrypt(userPassword)
 
     const user = await this.userRepository.createUser({
