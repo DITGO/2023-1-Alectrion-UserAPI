@@ -20,8 +20,8 @@ export class MailerAdapter implements MailService {
         from: process.env.USER,
         to: email,
         subject: "Senha temporária Alectrion",
-//        text: `A sua senha temporária é: ${temporaryPassword}`,
-        html: `
+        text: `A sua senha temporária é: ${temporaryPassword}`,
+/*        html: `
     <html>
     <head>
       <title>Senha temporária Alectrion</title>
@@ -57,6 +57,7 @@ export class MailerAdapter implements MailService {
       </div>
     </body>
     </html>`
+    */
       })
       .then(() => {
         return true
